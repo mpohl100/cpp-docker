@@ -9,6 +9,8 @@ endif ()
 include(${CMAKE_SOURCE_DIR}/scripts/conan.cmake)
 
 conan_check(VERSION 1.14.4 REQUIRED)
+conan_cmake_settings(settings)
+conan_cmake_autodetect(settings)
 conan_add_remote(NAME conancenter INDEX 1
         URL https://center.conan.io
         VERIFY_SSL True)

@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
  && rm -rf /var/lib/apt/lists/*
 
 # Install Conan
-RUN pip3 install conan
+RUN pip3 install conan==1.*
 
 # Install additional GCC versions (change as needed)
 RUN apt-get update && apt-get install -y \
