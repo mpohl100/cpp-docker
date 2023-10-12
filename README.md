@@ -1,2 +1,2 @@
-# cpp-docker
-cpp docker initial cmake project
+# cpp
+Initial cmake project
