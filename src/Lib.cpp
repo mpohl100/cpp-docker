@@ -4,11 +4,10 @@
 
 #include <iostream>
 
-namespace lib{
+namespace lib {
 
-void say_hello(std::string name)
-{
-    std::cout << "Hello, " << name << "!" << '\n';
+void say_hello(std::string name) {
+  std::cout << "Hello, " << name << "!" << '\n';
 }
 
-}
+} // namespace lib

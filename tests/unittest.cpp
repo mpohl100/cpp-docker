@@ -4,11 +4,11 @@
 
 namespace {
 
-TEST_CASE("Lib", "[lib]"){
-    SECTION("Example"){
-        lib::say_hello("World");
-        CHECK(true);
-    }
+TEST_CASE("Lib", "[lib]") {
+  SECTION("Example") {
+    lib::say_hello("World");
+    CHECK(true);
+  }
 }
 
-}
+} // namespace
