@@ -1,10 +1,6 @@
-# Use an official Ubuntu as a parent image
-FROM ubuntu:latest
-
-# Set environment variables
-ENV DEBIAN_FRONTEND=noninteractive
-# Use an official Ubuntu as a parent image
-FROM ubuntu:latest
+#Use microsoft devcontainer
+ARG VARIANT=ubuntu-22.04
+FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
@@ -24,6 +20,7 @@ RUN pip3 install conan==1.*
 # Install additional GCC versions (change as needed)
 RUN apt-get update && apt-get install -y \
     g++-11 \
+    gdb \
  && rm -rf /var/lib/apt/lists/*
 
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 100
@@ -37,4 +34,4 @@ RUN update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 100
 WORKDIR /workspace
 
 # Define the entry point
-CMD ["/bin/bash"]
+CMD ["/bin/bash", "-c", "if [ \"$EXECUTE_BIN_BASH\" -eq 1 ]; then /bin/bash; else echo \"Not executing /bin/bash\"; fi"]
