@@ -1,6 +1,6 @@
 #include <string>
 
-namespace lib{
+namespace lib {
 
 void say_hello(std::string name);
 
