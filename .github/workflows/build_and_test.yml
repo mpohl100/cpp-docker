@@ -11,54 +11,55 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: docker://github.com/mpohl100/cpp-docker#.devcontainer
+      options: --privileged  # Needed for some Docker-in-Docker scenarios
     steps:
-
+      - name: Checkout (GitHub)
+        uses: actions/checkout@v3
+            
       - name: Checkout (GitHub)
         uses: actions/checkout@v3
 
-      - name: Build and run dev container task
-        uses: devcontainers/ci@v0.3
-        with:
-          runCmd: |
-            # Add multiple commands to run if needed
+      - name: Setup Conan
+        run: conan profile detect
 
-            conan profile detect
-            mkdir -p build
-            cd build
+      - name: Create build directory
+        run: mkdir -p build
 
-            # gcc debug
-            chmod +x ../scripts/make_debug_gcc.sh
-            ../scripts/make_debug_gcc.sh
-            ./Debug/tests/tests
-            
-            cd ..
-            rm -rf build
-            mkdir build
-            cd build
+      - name: Build and test with GCC (debug)
+        run: |
+          chmod +x ../scripts/make_debug_gcc.sh
+          ../scripts/make_debug_gcc.sh
+          ./Debug/tests/tests
+        working-directory: build
 
-            # gcc release
-            chmod +x ../scripts/make_release_gcc.sh
-            ../scripts/make_release_gcc.sh
-            ./Release/tests/tests
-            
-            cd ..
-            rm -rf build
-            mkdir build
-            cd build
+      - name: Cleanup build directory
+        run: rm -rf build
 
-            # clang debug
-            chmod +x ../scripts/make_debug_clang.sh
-            ../scripts/make_debug_clang.sh
-            ./Debug/tests/tests
-            
-            cd ..
-            rm -rf build
-            mkdir build
-            cd build
+      - name: Create build directory
+        run: mkdir -p build
 
-            # clang release
-            chmod +x ../scripts/make_release_clang.sh
-            ../scripts/make_release_clang.sh
-            ./Release/tests/tests
-            
+      - name: Build and test with GCC (release)
+        run: |
+          chmod +x ../scripts/make_release_gcc.sh
+          ../scripts/make_release_gcc.sh
+          ./Release/tests/tests
+        working-directory: build
+
+      - name: Cleanup build directory
+        run: rm -rf build
+
+      - name: Create build directory
+        run: mkdir -p build
+
+      - name: Build and test with Clang (debug)
+        run: |
+          chmod +x ../scripts/make_debug_clang.sh
+          ../scripts/make_debug_clang.sh
+          ./Debug/tests/tests
+        working-directory: build
+
+      - name: Cleanup build directory
+        run: rm -rf build
 
