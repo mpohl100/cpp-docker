@@ -40,6 +40,15 @@ if(ENABLE_COVERAGE)
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 endif()
 
+if(ENABLE_FORMATTING)
+    message("formatting check enabled")
+    find_program(CLANG_FORMAT clang-format REQUIRED)
+    add_custom_target(check_format
+    COMMAND ${CMAKE_SOURCE_DIR}/scripts/check_format.sh
+    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+    COMMENT "Checking source code formatting")
+endif()
+
 enable_testing()
 
 add_subdirectory(src)

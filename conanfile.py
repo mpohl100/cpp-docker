@@ -14,8 +14,8 @@ class ParallelConan(ConanFile):
         "clara/1.1.5",
         "range-v3/0.10.0",
     ]
-    options = {"coverage": [True, False]}
-    default_options = {"coverage": False}
+    options = {"coverage": [True, False], "formatting": [True, False]}
+    default_options = {"coverage": False, "formatting": False}
 
     def configure(self):
         print("do nothing in configure")
@@ -34,10 +34,14 @@ class ParallelConan(ConanFile):
 
     def build(self):
         coverage = getattr(self.options, "coverage", False)
+        formatting = getattr(self.options, "formatting", False)
 
         if coverage:
             self.output.info("Building with coverage flags...")
             self._build_with_coverage()
+        elif formatting:
+            self.output.info("Building with formatting flags...")
+            self._build_with_formatting()
         else:
             self.output.info("Building without coverage flags...")
             self._build_without_coverage()
@@ -46,6 +50,14 @@ class ParallelConan(ConanFile):
         cmake = CMake(self)
         vars = {
             "ENABLE_COVERAGE": "true",
+        }
+        cmake.configure(vars)
+        cmake.build()
+
+    def _build_with_formatting(self):
+        cmake = CMake(self)
+        vars = {
+            "ENABLE_FORMATTING": "true",
         }
         cmake.configure(vars)
         cmake.build()
