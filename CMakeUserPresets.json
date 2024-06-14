@@ -5,6 +5,6 @@
     },
     "include": [
         "/workspaces/cpp-docker/build/Debug/generators/CMakePresets.json",
-        "/workspaces/cpp-docker/build/Release/generators/CMakePresets.json"
+        "build/Debug/generators/CMakePresets.json"
     ]
 }

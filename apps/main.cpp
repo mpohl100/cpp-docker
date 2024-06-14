@@ -21,5 +21,6 @@ int main(int argc, char **argv) {
   }
 
   lib::say_hello(name);
+  lib::play_fizzbuzz();
   return 0;
 }
