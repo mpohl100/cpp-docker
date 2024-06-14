@@ -10,7 +10,7 @@ void say_hello(std::string name) {
   std::cout << "Hello, " << name << "!" << '\n';
 }
 
-void play_fizzbuzz(){
+void play_fizzbuzz() {
   auto fizzbuzz = [](int i) {
     if (i % 15 == 0) {
       return std::string("FizzBuzz");
@@ -23,9 +23,8 @@ void play_fizzbuzz(){
     }
   };
 
-  ranges::for_each(ranges::views::ints(1, 101), [&fizzbuzz](int i) {
-    std::cout << fizzbuzz(i) << '\n';
-  });
+  ranges::for_each(ranges::views::ints(1, 101),
+                   [&fizzbuzz](int i) { std::cout << fizzbuzz(i) << '\n'; });
 }
 
 } // namespace lib
